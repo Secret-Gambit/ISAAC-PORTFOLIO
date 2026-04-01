@@ -1,0 +1,184 @@
+/* Cyber Typewriter Styles */
+
+.cyber-typewriter {
+  display: inline-flex;
+  align-items: center;
+  font-family: "Courier New", monospace;
+  font-weight: 700;
+  font-size: clamp(1.5rem, 5vw, 3rem);
+  line-height: 1.2;
+  min-height: 1.2em;
+  height: 1.2em;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+/* Neon Cyber Text */
+.cyber-text {
+  color: #00f3ff;
+  text-shadow:
+    0 0 5px #00f3ff,
+    0 0 10px #00f3ff,
+    0 0 20px #00f3ff,
+    0 0 40px #00f3ff,
+    0 0 80px #00f3ff;
+  animation: textFlicker 3s infinite alternate;
+}
+
+/* Blinking Neon Cursor */
+.cyber-cursor {
+  display: inline-block;
+  width: 3px;
+  height: 1em;
+  background: #ff00ff;
+  margin-left: 4px;
+  box-shadow:
+    0 0 5px #ff00ff,
+    0 0 10px #ff00ff,
+    0 0 20px #ff00ff;
+  animation:
+    cursorBlink 0.8s infinite,
+    cursorFlicker 2s infinite alternate;
+}
+
+@keyframes cursorBlink {
+  0%,
+  50% {
+    opacity: 1;
+  }
+  51%,
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes cursorFlicker {
+  0%,
+  100% {
+    box-shadow:
+      0 0 5px #ff00ff,
+      0 0 10px #ff00ff,
+      0 0 20px #ff00ff;
+  }
+  50% {
+    box-shadow:
+      0 0 2px #ff00ff,
+      0 0 5px #ff00ff,
+      0 0 10px #ff00ff;
+  }
+}
+
+@keyframes textFlicker {
+  0%,
+  100% {
+    text-shadow:
+      0 0 5px #00f3ff,
+      0 0 10px #00f3ff,
+      0 0 20px #00f3ff,
+      0 0 40px #00f3ff;
+  }
+  50% {
+    text-shadow:
+      0 0 2px #00f3ff,
+      0 0 5px #00f3ff,
+      0 0 10px #00f3ff,
+      0 0 20px #00f3ff;
+  }
+  52% {
+    text-shadow:
+      0 0 10px #00f3ff,
+      0 0 20px #00f3ff,
+      0 0 40px #00f3ff,
+      0 0 80px #00f3ff;
+  }
+}
+
+/* Glitch Effect */
+.glitch {
+  position: relative;
+}
+
+.glitch::before,
+.glitch::after {
+  content: attr(data-text);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0.8;
+}
+
+.glitch::before {
+  color: #ff00ff;
+  z-index: -1;
+  animation: glitch-1 2s infinite linear alternate-reverse;
+  clip-path: polygon(0 0, 100% 0, 100% 35%, 0 35%);
+}
+
+.glitch::after {
+  color: #00ff9f;
+  z-index: -2;
+  animation: glitch-2 3s infinite linear alternate-reverse;
+  clip-path: polygon(0 65%, 100% 65%, 100% 100%, 0 100%);
+}
+
+@keyframes glitch-1 {
+  0%,
+  100% {
+    transform: translate(0);
+  }
+  20% {
+    transform: translate(-2px, 2px);
+  }
+  40% {
+    transform: translate(-2px, -2px);
+  }
+  60% {
+    transform: translate(2px, 2px);
+  }
+  80% {
+    transform: translate(2px, -2px);
+  }
+}
+
+@keyframes glitch-2 {
+  0%,
+  100% {
+    transform: translate(0);
+  }
+  20% {
+    transform: translate(2px, -2px);
+  }
+  40% {
+    transform: translate(2px, 2px);
+  }
+  60% {
+    transform: translate(-2px, -2px);
+  }
+  80% {
+    transform: translate(-2px, 2px);
+  }
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .cyber-typewriter {
+    font-size: clamp(1.2rem, 6vw, 2rem);
+  }
+
+  .cyber-cursor {
+    width: 2px;
+  }
+}
+
+/* Dark background compatibility */
+.cyber-typewriter-container {
+  background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #16213e 100%);
+  padding: 2rem;
+  border-radius: 1rem;
+  border: 1px solid rgba(0, 243, 255, 0.2);
+  box-shadow:
+    0 0 20px rgba(0, 243, 255, 0.1),
+    inset 0 0 20px rgba(0, 243, 255, 0.05);
+}
