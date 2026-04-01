@@ -40,6 +40,7 @@ function App() {
   const [aboutTextRef, aboutTextVisible] = useScrollAnimation(0.1);
   const [expRef, expVisible] = useScrollAnimation(0.1);
   const [skillsRef, skillsVisible] = useScrollAnimation(0.1);
+  const [projectsRef, projectsVisible] = useScrollAnimation(0.1);
   const [connectRef, connectVisible] = useScrollAnimation(0.1);
 
   useEffect(() => {
@@ -89,6 +90,51 @@ function App() {
     { name: 'Motion Graphics', icon: <Zap className="w-6 h-6" />, level: 'Basic' },
     { name: 'Visual Design', icon: <Sparkles className="w-6 h-6" />, level: 'Advanced' },
     { name: 'Brand Identity', icon: <Fingerprint className="w-6 h-6" />, level: 'Intermediate' },
+  ];
+
+  const projects = [
+    {
+      title: 'Brand Identity Design',
+      category: 'Branding',
+      description: 'Complete brand identity package including logo, color palette, and brand guidelines.',
+      image: '/projects/project1.jpg',
+      tools: ['Photoshop', 'Illustrator'],
+    },
+    {
+      title: 'Social Media Campaign',
+      category: 'Social Media',
+      description: 'Engaging social media graphics and motion content for product launch.',
+      image: '/projects/project2.jpg',
+      tools: ['Canva', 'After Effects'],
+    },
+    {
+      title: 'Motion Graphics Reel',
+      category: 'Motion Design',
+      description: 'Dynamic motion graphics and visual effects for promotional video.',
+      image: '/projects/project3.jpg',
+      tools: ['After Effects', 'Premiere Pro'],
+    },
+    {
+      title: 'Event Flyer Series',
+      category: 'Print Design',
+      description: 'Eye-catching promotional materials for music festival and events.',
+      image: '/projects/project4.jpg',
+      tools: ['Photoshop', 'Canva'],
+    },
+    {
+      title: 'UI/UX Concepts',
+      category: 'Digital Design',
+      description: 'Mobile app interface design with modern user experience principles.',
+      image: '/projects/project5.jpg',
+      tools: ['Figma', 'Photoshop'],
+    },
+    {
+      title: 'Album Artwork',
+      category: 'Digital Art',
+      description: 'Custom album cover design featuring original digital illustrations.',
+      image: '/projects/project6.jpg',
+      tools: ['Photoshop', 'Procreate'],
+    },
   ];
 
   const socials = [
@@ -148,7 +194,7 @@ function App() {
             </span>
             
             <div className="hidden md:flex items-center space-x-6">
-              {['about', 'experience', 'skills', 'connect'].map((section) => (
+              {['about', 'experience', 'skills', 'projects', 'connect'].map((section) => (
                 <button 
                   key={section}
                   onClick={() => scrollToSection(section)} 
@@ -174,7 +220,7 @@ function App() {
         {isMenuOpen && (
           <div className="md:hidden bg-dark-lighter/95 backdrop-blur-xl border-t border-primary/30 mt-2 mx-4 rounded-2xl overflow-hidden">
             <div className="px-4 py-4 space-y-3">
-              {['about', 'experience', 'skills', 'connect'].map((section) => (
+              {['about', 'experience', 'skills', 'projects', 'connect'].map((section) => (
                 <button 
                   key={section}
                   onClick={() => scrollToSection(section)} 
@@ -452,6 +498,72 @@ function App() {
                       className="h-full bg-gradient-to-r from-primary to-secondary rounded-full transition-all duration-1000"
                       style={{ width: skill.level === 'Expert' ? '95%' : skill.level === 'Advanced' ? '85%' : '70%' }}
                     />
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Projects Section */}
+      <section id="projects" ref={projectsRef} className="py-20 md:py-32 bg-dark-lighter/30 relative">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className={`text-center mb-16`}>
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 border border-primary/30 mb-4">
+              <Eye className="w-4 h-4 text-primary" />
+              <span className="text-primary text-xs">PORTFOLIO_ARCHIVE</span>
+            </div>
+            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
+              <GlitchText text="PROJECTS_GALLERY" className="gradient-text" />
+            </h2>
+            <p className="text-gray-400 max-w-2xl mx-auto">
+              Visual showcase of completed creative works
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 perspective-container">
+            {projects.map((project, index) => (
+              <div 
+                key={index}
+                className={`group card-3d bg-dark rounded-2xl overflow-hidden border border-gray-800 hover:border-primary/50 depth-shadow neon-border stagger-${(index % 6) + 1}`}
+              >
+                <div className="card-3d-inner">
+                  {/* Project Image */}
+                  <div className="relative h-48 overflow-hidden">
+                    <img 
+                      src={project.image} 
+                      alt={project.title}
+                      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                      loading="lazy"
+                      decoding="async"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-dark via-dark/50 to-transparent" />
+                    <div className="absolute top-4 right-4 px-3 py-1 bg-primary/20 backdrop-blur-sm rounded-full border border-primary/30">
+                      <span className="text-primary text-xs font-medium">{project.category}</span>
+                    </div>
+                  </div>
+                  
+                  {/* Project Info */}
+                  <div className="p-6">
+                    <h3 className="text-xl font-semibold text-white mb-2 group-hover:text-primary transition-colors">
+                      {project.title}
+                    </h3>
+                    <p className="text-gray-400 text-sm mb-4">
+                      {project.description}
+                    </p>
+                    
+                    {/* Tools */}
+                    <div className="flex flex-wrap gap-2">
+                      {project.tools.map((tool, toolIndex) => (
+                        <span 
+                          key={toolIndex}
+                          className="px-2 py-1 bg-primary/10 text-primary text-xs rounded-md border border-primary/20"
+                        >
+                          {tool}
+                        </span>
+                      ))}
+                    </div>
                   </div>
                 </div>
               </div>
