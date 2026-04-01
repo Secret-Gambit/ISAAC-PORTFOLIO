@@ -254,13 +254,13 @@ function HomePage() {
             
             {/* LEFT SIDE - Content */}
             <div ref={heroRef} className="max-w-lg text-left">
-              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/30 mb-6">
+              <div className="inline-flex items-center gap-2 px-3 py-1.5 sm:px-4 sm:py-2 rounded-full bg-primary/10 border border-primary/30 mb-4 sm:mb-6">
                 <span className="w-2 h-2 rounded-full bg-green-400" />
-                <span className="text-primary text-sm">SYSTEM_ONLINE</span>
+                <span className="text-primary text-xs sm:text-sm">SYSTEM_ONLINE</span>
               </div>
               
               <div className="mb-6">
-                <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white whitespace-nowrap">
+                <h1 className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white">
                   <RotatingTypewriter 
                     phrases={[
                       { text: "Hi, I'm Sogbola Isaac", highlightStart: 8, highlightEnd: 15 },
@@ -274,41 +274,43 @@ function HomePage() {
                 </h1>
               </div>
               
-              <p className="text-gray-500 mb-8 max-w-md">
+              <p className="text-gray-500 mb-6 sm:mb-8 max-w-md text-sm sm:text-base">
                 Initializing creative protocols... Bringing ideas to life through visually stunning designs.
               </p>
               
-              {/* Stats Row */}
-              <div className="flex flex-wrap gap-6 justify-start mb-8">
+              {/* Stats Row - Mobile optimized */}
+              <div className="flex flex-wrap gap-3 sm:gap-6 justify-start mb-6 sm:mb-8">
                 {stats.map((stat, index) => (
                   <div 
                     key={index}
-                    className={`flex items-center gap-3 px-4 py-2 rounded-lg bg-dark-lighter/50 border border-primary/20 neon-border stagger-${index + 1}`}
+                    className={`flex items-center gap-2 sm:gap-3 px-3 py-1.5 sm:px-4 sm:py-2 rounded-lg bg-dark-lighter/50 border border-primary/20 neon-border stagger-${index + 1}`}
                   >
                     <span className="text-primary">{stat.icon}</span>
                     <div>
-                      <span className="text-white font-bold">{stat.value}</span>
+                      <span className="text-white font-bold text-sm sm:text-base">{stat.value}</span>
                       <span className="text-gray-500 text-xs block">{stat.label}</span>
                     </div>
                   </div>
                 ))}
               </div>
               
-              <div className={`flex flex-col sm:flex-row gap-4 justify-start stagger-4`}>
+              <div className={`flex flex-col sm:flex-row gap-3 sm:gap-4 justify-start stagger-4`}>
                 <button 
                   onClick={() => scrollToSection('connect')}
-                  className="px-6 py-3 bg-primary hover:bg-blue-600 text-white rounded-full font-medium transition-all glow btn-3d group relative overflow-hidden whitespace-nowrap"
+                  className="px-4 py-2.5 sm:px-6 sm:py-3 bg-primary hover:bg-blue-600 text-white rounded-full font-medium transition-all glow btn-3d group relative overflow-hidden text-sm sm:text-base"
                 >
-                  <span className="relative z-10 flex items-center gap-2">
+                  <span className="relative z-10 flex items-center justify-center gap-2">
                     <Terminal className="w-4 h-4" />
-                    CONNECT
+                    <span className="sm:hidden">Connect</span>
+                    <span className="hidden sm:inline">CONNECT</span>
                   </span>
                 </button>
                 <button 
                   onClick={() => scrollToSection('about')}
-                  className="px-6 py-3 border border-gray-700 hover:border-primary text-gray-300 hover:text-white rounded-full font-medium transition-all btn-3d whitespace-nowrap"
+                  className="px-4 py-2.5 sm:px-6 sm:py-3 border border-gray-700 hover:border-primary text-gray-300 hover:text-white rounded-full font-medium transition-all btn-3d text-sm sm:text-base"
                 >
-                  DECODE_PROFILE
+                  <span className="sm:hidden">Profile</span>
+                  <span className="hidden sm:inline">DECODE_PROFILE</span>
                 </button>
               </div>
             </div>
@@ -352,7 +354,7 @@ function HomePage() {
       </section>
 
       {/* About Section */}
-      <section id="about" ref={aboutRef} className="py-20 md:py-32 bg-dark-lighter/50 relative">
+      <section id="about" ref={aboutRef} className="py-12 sm:py-20 md:py-32 bg-dark-lighter/50 relative">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid md:grid-cols-2 gap-12 items-center">
             <div className={`order-2 md:order-1`}>
@@ -405,7 +407,7 @@ function HomePage() {
       </section>
 
       {/* Experience Section */}
-      <section id="experience" ref={expRef} className="py-20 md:py-32 bg-dark relative">
+      <section id="experience" ref={expRef} className="py-12 sm:py-20 md:py-32 bg-dark relative">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className={`text-center mb-16`}>
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 border border-primary/30 mb-4">
@@ -464,7 +466,7 @@ function HomePage() {
       </section>
 
       {/* Skills Section */}
-      <section id="skills" ref={skillsRef} className="py-20 md:py-32 bg-dark-lighter/50 relative">
+      <section id="skills" ref={skillsRef} className="py-12 sm:py-20 md:py-32 bg-dark-lighter/50 relative">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className={`text-center mb-16`}>
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 border border-primary/30 mb-4">
@@ -513,7 +515,7 @@ function HomePage() {
       </section>
 
       {/* Projects Section */}
-      <section id="projects" ref={projectsRef} className="py-20 md:py-32 bg-dark-lighter/30 relative">
+      <section id="projects" ref={projectsRef} className="py-12 sm:py-20 md:py-32 bg-dark-lighter/30 relative">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className={`text-center mb-16`}>
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 border border-primary/30 mb-4">
@@ -598,7 +600,7 @@ function HomePage() {
       </section>
 
       {/* Socials Section */}
-      <section id="connect" ref={connectRef} className="py-20 md:py-32 bg-dark relative">
+      <section id="connect" ref={connectRef} className="py-12 sm:py-20 md:py-32 bg-dark relative">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className={`text-center mb-16`}>
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 border border-primary/30 mb-4">
