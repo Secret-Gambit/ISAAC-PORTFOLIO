@@ -108,7 +108,7 @@ function HomePage() {
     },
     {
       title: 'Church Events Design',
-      category: 'Church Events',
+      category: 'Church Events Design',
       description: 'Creative designs for church programs, conferences, and special events.',
       image: '/projects/Church designs/prayer conference 2.png',
       tools: ['Photoshop', 'Illustrator'],
@@ -136,7 +136,7 @@ function HomePage() {
     },
     {
       title: 'YouTube Channel Assets',
-      category: 'YouTube Assets',
+      category: 'YouTube Channel Assets',
       description: 'Banners, thumbnails, and display pictures for YouTube channels.',
       image: '/projects/Youtube (banners,Thumbnails & Dp)/BANNER.jpg',
       tools: ['Canva', 'Photoshop'],
@@ -514,27 +514,26 @@ function HomePage() {
       {/* Projects Section */}
       <section id="projects" ref={projectsRef} className="py-12 sm:py-20 md:py-32 bg-dark-lighter/30 relative">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className={`text-center mb-8 sm:mb-16`}>
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 border border-primary/30 mb-4">
-              <Eye className="w-4 h-4 text-primary" />
-              <span className="text-primary text-xs">PORTFOLIO_ARCHIVE</span>
-            </div>
-            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-4">
-              <GlitchText text="PROJECTS_GALLERY" className="gradient-text" />
+          
+          {/* Featured Projects Header */}
+          <div className="mb-8 sm:mb-12">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-2">
+              Featured Projects
             </h2>
-            <p className="text-gray-400 max-w-2xl mx-auto text-sm sm:text-base">
-              Visual showcase of completed creative works
-            </p>
+            <div className="flex items-center gap-2">
+              <div className="h-1 w-20 bg-primary rounded-full"></div>
+              <span className="text-primary text-sm font-medium">Portfolio</span>
+            </div>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
             {projects.map((project, index) => (
               <div 
                 key={index}
-                onClick={() => navigate(`/projects?category=${encodeURIComponent(project.category)}`)}
+                onClick={() => navigate('/projects')}
                 className="group bg-dark rounded-2xl overflow-hidden border border-gray-800 hover:border-primary/50 transition-all duration-300 cursor-pointer hover:shadow-lg hover:shadow-primary/10"
               >
-                {/* Project Image with Lazy Loading */}
+                {/* Project Image */}
                 <div className="relative h-48 sm:h-56 overflow-hidden">
                   <LazyImage
                     src={project.image}
@@ -544,38 +543,12 @@ function HomePage() {
                     showHoverOverlay={false}
                     objectFit="object-cover"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-dark via-dark/50 to-transparent pointer-events-none" />
-                  <div className="absolute top-3 right-3 sm:top-4 sm:right-4 px-2 py-1 sm:px-3 sm:py-1 bg-primary/20 backdrop-blur-sm rounded-full border border-primary/30">
-                    <span className="text-primary text-xs font-medium">{project.category}</span>
-                  </div>
-                </div>
-                
-                {/* Project Info */}
-                <div className="p-4 sm:p-6">
-                  <h3 className="text-lg sm:text-xl font-semibold text-white mb-2 group-hover:text-primary transition-colors">
-                    {project.title}
-                  </h3>
-                  <p className="text-gray-400 text-sm mb-4 line-clamp-2">
-                    {project.description}
-                  </p>
+                  <div className="absolute inset-0 bg-gradient-to-t from-dark via-dark/20 to-transparent pointer-events-none" />
                   
-                  {/* Tools */}
-                  <div className="flex flex-wrap gap-2">
-                    {project.tools.map((tool, toolIndex) => (
-                      <span 
-                        key={toolIndex}
-                        className="px-2 py-1 bg-primary/10 text-primary text-xs rounded-md border border-primary/20"
-                      >
-                        {tool}
-                      </span>
-                    ))}
-                  </div>
-                  
-                  {/* View Category Link */}
-                  <div className="mt-4 pt-4 border-t border-gray-800">
-                    <span className="text-primary text-xs font-medium flex items-center gap-1">
-                      View all {project.category}
-                      <ArrowRight className="w-3 h-3" />
+                  {/* Category Badge - Top Left */}
+                  <div className="absolute top-3 left-3 sm:top-4 sm:left-4">
+                    <span className="px-3 py-1.5 bg-primary text-white text-xs font-semibold rounded-full shadow-lg">
+                      {project.category}
                     </span>
                   </div>
                 </div>
@@ -587,18 +560,12 @@ function HomePage() {
           <div className="mt-12 text-center">
             <button
               onClick={() => navigate('/projects')}
-              className="inline-flex items-center gap-2 px-8 py-4 bg-primary/10 hover:bg-primary/20 text-primary border border-primary/50 rounded-full font-medium transition-all group"
+              className="inline-flex items-center gap-2 px-8 py-4 bg-primary hover:bg-blue-600 text-white rounded-full font-medium transition-all group shadow-lg shadow-primary/20"
             >
               <Grid3X3 className="w-5 h-5" />
-              <span>See All Projects</span>
-              <span className="px-2 py-0.5 bg-primary/20 rounded-full text-xs">
-                110+
-              </span>
+              <span>View All Projects</span>
               <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
             </button>
-            <p className="text-gray-500 text-sm mt-3">
-              Browse the complete portfolio archive
-            </p>
           </div>
         </div>
       </section>
