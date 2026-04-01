@@ -101,45 +101,45 @@ function HomePage() {
   const projects = [
     {
       title: 'Business Branding',
-      category: 'Business Flyers',
+      category: 'Business Branding',
       description: 'Professional business flyers and branding materials for various companies.',
-      image: '/projects/Buisness flyers/burger queen.png',
+      image: '/projects/Buisness flyers/SG2.jpg',
       tools: ['Photoshop', 'Canva'],
     },
     {
-      title: 'Church Event Designs',
-      category: 'Church Designs',
+      title: 'Church Events Design',
+      category: 'Church Events',
       description: 'Creative designs for church programs, conferences, and special events.',
       image: '/projects/Church designs/prayer conference 2.png',
       tools: ['Photoshop', 'Illustrator'],
     },
     {
-      title: 'YouTube Channel Assets',
-      category: 'Social Media',
-      description: 'Banners, thumbnails, and display pictures for YouTube channels.',
-      image: '/projects/Youtube (banners,Thumbnails & Dp)/BANNER.jpg',
-      tools: ['Canva', 'Photoshop'],
-    },
-    {
-      title: 'Football Graphics',
-      category: 'Sports Design',
+      title: 'Sports Graphics',
+      category: 'Sports Graphics',
       description: 'Dynamic football and sports-related graphic designs.',
-      image: '/projects/Football designs/barcalineup.png',
+      image: '/projects/Football designs/lionel messi.jpg',
       tools: ['Photoshop', 'After Effects'],
     },
     {
+      title: 'Event Flyers',
+      category: 'Event Flyers',
+      description: 'Custom birthday, wedding, and celebration event flyers and invitations.',
+      image: '/projects/birthdays flyers & others/wedding.jpg',
+      tools: ['Photoshop', 'Canva'],
+    },
+    {
       title: 'New Month Designs',
-      category: 'Social Media',
+      category: 'New Month Designs',
       description: 'Celebratory graphics for monthly milestones and achievements.',
       image: '/projects/New month/new month.png',
       tools: ['Canva', 'Photoshop'],
     },
     {
-      title: 'Event Flyers',
-      category: 'Event Design',
-      description: 'Custom birthday, wedding, and celebration event flyers and invitations.',
-      image: '/projects/birthdays flyers & others/BIRTHDAY3.png',
-      tools: ['Photoshop', 'Canva'],
+      title: 'YouTube Channel Assets',
+      category: 'YouTube Assets',
+      description: 'Banners, thumbnails, and display pictures for YouTube channels.',
+      image: '/projects/Youtube (banners,Thumbnails & Dp)/BANNER.jpg',
+      tools: ['Canva', 'Photoshop'],
     },
   ];
 
@@ -383,21 +383,21 @@ function HomePage() {
                 <span className="text-primary text-xs">IDENTITY_VERIFIED</span>
               </div>
               
-              <h2 className="text-3xl md:text-4xl font-bold text-white mb-6">
+              <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-4 sm:mb-6">
                 <GlitchText text="PROFILE_DATA" className="gradient-text" />
               </h2>
               
-              <div className="space-y-4 text-gray-400 text-lg leading-relaxed">
-                <p className="neon-border p-4 rounded-lg bg-dark/50">
+              <div className="space-y-3 sm:space-y-4 text-gray-400 text-base sm:text-lg leading-relaxed">
+                <p className="neon-border p-3 sm:p-4 rounded-lg bg-dark/50">
                   &gt; Name: Sogbola Isaac
                 </p>
-                <p className="neon-border p-4 rounded-lg bg-dark/50">
+                <p className="neon-border p-3 sm:p-4 rounded-lg bg-dark/50">
                   &gt; Role: Creative Graphic Designer
                 </p>
-                <p className="neon-border p-4 rounded-lg bg-dark/50">
+                <p className="neon-border p-3 sm:p-4 rounded-lg bg-dark/50">
                   &gt; Mission: Bringing ideas to life through visually stunning designs with attention to detail and modern aesthetics.
                 </p>
-                <p className="neon-border p-4 rounded-lg bg-dark/50">
+                <p className="neon-border p-3 sm:p-4 rounded-lg bg-dark/50">
                   &gt; Experience: 1+ years of hands-on creative projects, continuously evolving with design trends.
                 </p>
               </div>
@@ -468,37 +468,37 @@ function HomePage() {
       {/* Skills Section */}
       <section id="skills" ref={skillsRef} className="py-12 sm:py-20 md:py-32 bg-dark-lighter/50 relative">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className={`text-center mb-16`}>
+          <div className={`text-center mb-8 sm:mb-16`}>
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 border border-primary/30 mb-4">
               <Code className="w-4 h-4 text-primary" />
               <span className="text-primary text-xs">TECH_STACK</span>
             </div>
-            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-4">
               <GlitchText text="SKILLS_MATRIX" className="gradient-text" />
             </h2>
-            <p className="text-gray-400 max-w-2xl mx-auto">
+            <p className="text-gray-400 max-w-2xl mx-auto text-sm sm:text-base">
               Technologies and abilities loaded
             </p>
           </div>
 
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 perspective-container">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 perspective-container">
             {skills.map((skill, index) => (
               <div 
                 key={index}
-                className={`group card-3d always-glow bg-dark rounded-xl p-6 border border-gray-800 hover:border-primary/50 depth-shadow neon-border stagger-${(index % 6) + 1}`}
+                className={`group card-3d always-glow bg-dark rounded-xl p-4 sm:p-6 border border-gray-800 hover:border-primary/50 depth-shadow neon-border stagger-${(index % 6) + 1}`}
               >
                 <div className="card-3d-inner">
-                  <div className="flex items-center justify-between mb-4">
-                    <div className="flex items-center gap-4">
-                      <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white transition-all">
+                  <div className="flex items-center justify-between mb-3 sm:mb-4">
+                    <div className="flex items-center gap-3 sm:gap-4">
+                      <div className="w-10 h-10 sm:w-12 sm:h-12 bg-primary/10 rounded-lg flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white transition-all">
                         {skill.icon}
                       </div>
                       <div>
-                        <span className="text-white font-medium block">{skill.name}</span>
+                        <span className="text-white font-medium block text-sm sm:text-base">{skill.name}</span>
                         <span className="text-primary text-xs">{skill.level}</span>
                       </div>
                     </div>
-                    <Binary className="w-5 h-5 text-gray-600 group-hover:text-primary transition-colors" />
+                    <Binary className="w-4 h-4 sm:w-5 sm:h-5 text-gray-600 group-hover:text-primary transition-colors" />
                   </div>
                   
                   <div className="h-1 bg-gray-800 rounded-full overflow-hidden">
@@ -517,15 +517,15 @@ function HomePage() {
       {/* Projects Section */}
       <section id="projects" ref={projectsRef} className="py-12 sm:py-20 md:py-32 bg-dark-lighter/30 relative">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className={`text-center mb-16`}>
+          <div className={`text-center mb-8 sm:mb-16`}>
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 border border-primary/30 mb-4">
               <Eye className="w-4 h-4 text-primary" />
               <span className="text-primary text-xs">PORTFOLIO_ARCHIVE</span>
             </div>
-            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-4">
               <GlitchText text="PROJECTS_GALLERY" className="gradient-text" />
             </h2>
-            <p className="text-gray-400 max-w-2xl mx-auto">
+            <p className="text-gray-400 max-w-2xl mx-auto text-sm sm:text-base">
               Visual showcase of completed creative works
             </p>
           </div>
