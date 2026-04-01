@@ -272,7 +272,7 @@ function ImageModal({ image, onClose, onNext, onPrev, currentIndex, total }) {
           alt={image.title}
           onLoad={() => setIsLoading(false)}
           onError={() => setIsLoading(false)}
-          className={`max-w-full max-h-full object-contain transition-opacity duration-300 ${
+          className={`max-w-full max-h-[calc(100vh-180px)] object-contain transition-opacity duration-300 ${
             isLoading ? 'opacity-0' : 'opacity-100'
           }`}
         />
@@ -430,6 +430,12 @@ function ProjectsGallery() {
                 onClick={() => {
                   setFilter(cat);
                   setDisplayCount(24);
+                  // Update URL to reflect the filter change
+                  if (cat === 'All') {
+                    navigate('/projects', { replace: true });
+                  } else {
+                    navigate(`/projects?category=${encodeURIComponent(cat)}`, { replace: true });
+                  }
                 }}
                 className={`px-2.5 sm:px-4 py-1.5 sm:py-2 rounded-full text-xs sm:text-sm font-medium transition-all ${
                   filter === cat
