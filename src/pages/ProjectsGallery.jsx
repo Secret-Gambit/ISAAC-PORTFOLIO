@@ -403,7 +403,7 @@ function ProjectsGallery() {
         <div className="max-w-7xl mx-auto px-3 sm:px-4 lg:px-8 py-3 sm:py-4">
           <div className="flex items-center justify-between">
             <button
-              onClick={() => navigate('/')}
+              onClick={() => navigate('/#projects')}
               className="flex items-center gap-1 sm:gap-2 text-gray-400 hover:text-primary transition-colors"
             >
               <ArrowLeft className="w-4 h-4 sm:w-5 sm:h-5" />
