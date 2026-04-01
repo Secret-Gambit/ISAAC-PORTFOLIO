@@ -1,6 +1,6 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { ArrowLeft, X, ChevronLeft, ChevronRight, Grid3X3 } from 'lucide-react';
+import { ArrowLeft, X, ChevronLeft, ChevronRight, Grid3X3, Loader2, ImageOff } from 'lucide-react';
 
 // Import all project images from different folders
 const allProjectImages = [
@@ -129,7 +129,107 @@ const allProjectImages = [
   { src: '/projects/Others/vk.jpg', category: 'Other', title: 'VK' },
 ];
 
+// Loading Spinner Component
+function LoadingSpinner({ text = "Loading projects..." }) {
+  return (
+    <div className="flex flex-col items-center justify-center min-h-[50vh]">
+      <div className="relative">
+        <div className="w-16 h-16 border-4 border-gray-700 border-t-primary rounded-full animate-spin" />
+        <div className="absolute inset-0 w-16 h-16 border-4 border-transparent border-t-secondary rounded-full animate-spin" style={{ animationDuration: '1.5s' }} />
+      </div>
+      <p className="text-gray-400 mt-4 text-sm animate-pulse">{text}</p>
+      <div className="mt-8 flex gap-2">
+        <div className="w-2 h-2 bg-primary rounded-full animate-bounce" style={{ animationDelay: '0ms' }} />
+        <div className="w-2 h-2 bg-primary rounded-full animate-bounce" style={{ animationDelay: '150ms' }} />
+        <div className="w-2 h-2 bg-primary rounded-full animate-bounce" style={{ animationDelay: '300ms' }} />
+      </div>
+    </div>
+  );
+}
+
+// Image Skeleton Loader
+function ImageSkeleton() {
+  return (
+    <div className="relative aspect-video rounded-lg overflow-hidden bg-gray-800 animate-pulse">
+      <div className="absolute inset-0 bg-gradient-to-br from-gray-800 to-gray-700" />
+      <div className="absolute inset-0 flex items-center justify-center">
+        <Loader2 className="w-8 h-8 text-gray-600 animate-spin" />
+      </div>
+    </div>
+  );
+}
+
+// Lazy Image Component with loading state
+function LazyImage({ src, alt, onClick }) {
+  const [isLoading, setIsLoading] = useState(true);
+  const [hasError, setHasError] = useState(false);
+  const [isVisible, setIsVisible] = useState(false);
+  const imgRef = useRef(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+          observer.disconnect();
+        }
+      },
+      { rootMargin: '50px' }
+    );
+
+    if (imgRef.current) {
+      observer.observe(imgRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, []);
+
+  return (
+    <div ref={imgRef} className="relative aspect-video rounded-lg overflow-hidden bg-gray-800">
+      {isLoading && !hasError && <ImageSkeleton />}
+      
+      {hasError ? (
+        <div className="absolute inset-0 flex flex-col items-center justify-center bg-gray-800">
+          <ImageOff className="w-8 h-8 text-gray-600 mb-2" />
+          <span className="text-gray-500 text-xs">Failed to load</span>
+        </div>
+      ) : (
+        isVisible && (
+          <img
+            src={src}
+            alt={alt}
+            onClick={onClick}
+            onLoad={() => setIsLoading(false)}
+            onError={() => {
+              setIsLoading(false);
+              setHasError(true);
+            }}
+            className={`w-full h-full object-cover transition-all duration-500 cursor-pointer group-hover:scale-110 ${
+              isLoading ? 'opacity-0' : 'opacity-100'
+            }`}
+            loading="lazy"
+            decoding="async"
+          />
+        )
+      )}
+      
+      {/* Hover Overlay */}
+      {!hasError && (
+        <div className="absolute inset-0 bg-black/0 group-hover:bg-black/40 transition-all duration-300 flex items-center justify-center">
+          <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+            <div className="w-12 h-12 bg-primary/90 rounded-full flex items-center justify-center">
+              <Grid3X3 className="w-6 h-6 text-white" />
+            </div>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
+
 function ImageModal({ image, onClose, onNext, onPrev, currentIndex, total }) {
+  const [isLoading, setIsLoading] = useState(true);
+  
   useEffect(() => {
     const handleKeyDown = (e) => {
       if (e.key === 'Escape') onClose();
@@ -157,7 +257,7 @@ function ImageModal({ image, onClose, onNext, onPrev, currentIndex, total }) {
       {/* Navigation */}
       <button
         onClick={onPrev}
-        className="absolute left-4 top-1/2 -translate-y-1/2 w-12 h-12 bg-white/10 hover:bg-white/20 rounded-full flex items-center justify-center text-white transition-all"
+        className="absolute left-4 top-1/2 -translate-y-1/2 w-12 h-12 bg-white/10 hover:bg-white/20 rounded-full flex items-center justify-center text-white transition-all disabled:opacity-30"
         disabled={currentIndex === 0}
       >
         <ChevronLeft className="w-6 h-6" />
@@ -165,18 +265,28 @@ function ImageModal({ image, onClose, onNext, onPrev, currentIndex, total }) {
 
       <button
         onClick={onNext}
-        className="absolute right-4 top-1/2 -translate-y-1/2 w-12 h-12 bg-white/10 hover:bg-white/20 rounded-full flex items-center justify-center text-white transition-all"
+        className="absolute right-4 top-1/2 -translate-y-1/2 w-12 h-12 bg-white/10 hover:bg-white/20 rounded-full flex items-center justify-center text-white transition-all disabled:opacity-30"
         disabled={currentIndex === total - 1}
       >
         <ChevronRight className="w-6 h-6" />
       </button>
+
+      {/* Loading Spinner for Modal Image */}
+      {isLoading && (
+        <div className="absolute inset-0 flex items-center justify-center">
+          <div className="w-12 h-12 border-4 border-gray-700 border-t-primary rounded-full animate-spin" />
+        </div>
+      )}
 
       {/* Image Container */}
       <div className="max-w-[90vw] max-h-[85vh]">
         <img
           src={image.src}
           alt={image.title}
-          className="max-w-full max-h-[85vh] object-contain"
+          onLoad={() => setIsLoading(false)}
+          className={`max-w-full max-h-[85vh] object-contain transition-opacity duration-300 ${
+            isLoading ? 'opacity-0' : 'opacity-100'
+          }`}
         />
       </div>
 
@@ -198,12 +308,24 @@ function ProjectsGallery() {
   const navigate = useNavigate();
   const [selectedImage, setSelectedImage] = useState(null);
   const [filter, setFilter] = useState('All');
+  const [isLoading, setIsLoading] = useState(true);
+  const [displayCount, setDisplayCount] = useState(24);
 
   const categories = ['All', ...new Set(allProjectImages.map(img => img.category))];
 
   const filteredImages = filter === 'All' 
     ? allProjectImages 
     : allProjectImages.filter(img => img.category === filter);
+
+  const visibleImages = filteredImages.slice(0, displayCount);
+
+  // Simulate initial loading
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsLoading(false);
+    }, 800);
+    return () => clearTimeout(timer);
+  }, []);
 
   const handleImageClick = (image, index) => {
     setSelectedImage({ image, index });
@@ -220,6 +342,40 @@ function ProjectsGallery() {
       : selectedImage.index - 1;
     setSelectedImage({ image: filteredImages[prevIndex], index: prevIndex });
   };
+
+  const loadMore = () => {
+    setDisplayCount(prev => Math.min(prev + 24, filteredImages.length));
+  };
+
+  if (isLoading) {
+    return (
+      <div className="min-h-screen bg-dark flex flex-col">
+        {/* Header */}
+        <div className="fixed top-0 left-0 right-0 z-50 bg-dark/95 backdrop-blur-xl border-b border-gray-800">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+            <div className="flex items-center justify-between">
+              <button
+                onClick={() => navigate('/')}
+                className="flex items-center gap-2 text-gray-400 hover:text-primary transition-colors"
+              >
+                <ArrowLeft className="w-5 h-5" />
+                <span className="font-medium">Back to Home</span>
+              </button>
+              <h1 className="text-xl font-bold text-white flex items-center gap-2">
+                <Grid3X3 className="w-6 h-6 text-primary" />
+                All Projects
+              </h1>
+              <div className="w-24" />
+            </div>
+          </div>
+        </div>
+
+        <div className="pt-24 flex-1 flex items-center justify-center">
+          <LoadingSpinner text={`Loading ${allProjectImages.length} projects...`} />
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-dark">
@@ -250,7 +406,10 @@ function ProjectsGallery() {
             {categories.map(cat => (
               <button
                 key={cat}
-                onClick={() => setFilter(cat)}
+                onClick={() => {
+                  setFilter(cat);
+                  setDisplayCount(24);
+                }}
                 className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${
                   filter === cat
                     ? 'bg-primary text-white'
@@ -258,9 +417,23 @@ function ProjectsGallery() {
                 }`}
               >
                 {cat}
+                {cat !== 'All' && (
+                  <span className="ml-2 text-xs opacity-70">
+                    {allProjectImages.filter(img => img.category === cat).length}
+                  </span>
+                )}
               </button>
             ))}
           </div>
+        </div>
+      </div>
+
+      {/* Results Count */}
+      <div className="px-4 pb-4">
+        <div className="max-w-7xl mx-auto text-center">
+          <p className="text-gray-500 text-sm">
+            Showing {Math.min(visibleImages.length, filteredImages.length)} of {filteredImages.length} projects
+          </p>
         </div>
       </div>
 
@@ -268,30 +441,17 @@ function ProjectsGallery() {
       <div className="px-4 pb-12">
         <div className="max-w-7xl mx-auto">
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4">
-            {filteredImages.map((image, index) => (
+            {visibleImages.map((image, index) => (
               <div
                 key={`${image.src}-${index}`}
                 onClick={() => handleImageClick(image, index)}
                 className="group cursor-pointer"
               >
-                {/* Thumbnail Container - 16:9 Aspect Ratio like YouTube */}
-                <div className="relative aspect-video rounded-lg overflow-hidden bg-gray-800">
-                  <img
-                    src={image.src}
-                    alt={image.title}
-                    className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
-                    loading="lazy"
-                    decoding="async"
-                  />
-                  {/* Hover Overlay */}
-                  <div className="absolute inset-0 bg-black/0 group-hover:bg-black/40 transition-all duration-300 flex items-center justify-center">
-                    <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                      <div className="w-12 h-12 bg-primary/90 rounded-full flex items-center justify-center">
-                        <Grid3X3 className="w-6 h-6 text-white" />
-                      </div>
-                    </div>
-                  </div>
-                </div>
+                <LazyImage
+                  src={image.src}
+                  alt={image.title}
+                  onClick={() => handleImageClick(image, index)}
+                />
                 {/* Title below thumbnail */}
                 <div className="mt-2">
                   <h3 className="text-white text-sm font-medium line-clamp-2 group-hover:text-primary transition-colors">
@@ -302,6 +462,27 @@ function ProjectsGallery() {
               </div>
             ))}
           </div>
+
+          {/* Load More Button */}
+          {displayCount < filteredImages.length && (
+            <div className="mt-12 text-center">
+              <button
+                onClick={loadMore}
+                className="px-8 py-3 bg-primary/10 hover:bg-primary/20 text-primary border border-primary/50 rounded-full font-medium transition-all"
+              >
+                Load More ({filteredImages.length - displayCount} remaining)
+              </button>
+            </div>
+          )}
+
+          {/* End of Results */}
+          {displayCount >= filteredImages.length && filteredImages.length > 0 && (
+            <div className="mt-12 text-center">
+              <p className="text-gray-500 text-sm">
+                You've reached the end of the gallery
+              </p>
+            </div>
+          )}
         </div>
       </div>
 
