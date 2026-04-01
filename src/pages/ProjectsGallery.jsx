@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback, useRef } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import { ArrowLeft, X, ChevronLeft, ChevronRight, Grid3X3, Loader2, ImageOff } from 'lucide-react';
 
 // Import all project images from different folders
@@ -310,12 +310,21 @@ function ImageModal({ image, onClose, onNext, onPrev, currentIndex, total }) {
 
 function ProjectsGallery() {
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
   const [selectedImage, setSelectedImage] = useState(null);
   const [filter, setFilter] = useState('All');
   const [isLoading, setIsLoading] = useState(true);
   const [displayCount, setDisplayCount] = useState(24);
 
   const categories = ['All', ...new Set(allProjectImages.map(img => img.category))];
+
+  // Read category from URL query params on mount
+  useEffect(() => {
+    const categoryFromUrl = searchParams.get('category');
+    if (categoryFromUrl && categories.includes(categoryFromUrl)) {
+      setFilter(categoryFromUrl);
+    }
+  }, [searchParams, categories]);
 
   const filteredImages = filter === 'All' 
     ? allProjectImages 

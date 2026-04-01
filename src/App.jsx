@@ -253,14 +253,14 @@ function HomePage() {
           <div className="flex flex-col md:flex-row items-center justify-between gap-12">
             
             {/* LEFT SIDE - Content */}
-            <div ref={heroRef} className="max-w-lg text-left">
+            <div ref={heroRef} className="max-w-2xl text-left">
               <div className="inline-flex items-center gap-2 px-3 py-1.5 sm:px-4 sm:py-2 rounded-full bg-primary/10 border border-primary/30 mb-4 sm:mb-6">
                 <span className="w-2 h-2 rounded-full bg-green-400" />
                 <span className="text-primary text-xs sm:text-sm">SYSTEM_ONLINE</span>
               </div>
               
               <div className="mb-6">
-                <h1 className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white">
+                <h1 className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white md:whitespace-nowrap">
                   <RotatingTypewriter 
                     phrases={[
                       { text: "Hi, I'm Sogbola Isaac", highlightStart: 8, highlightEnd: 15 },
@@ -534,7 +534,8 @@ function HomePage() {
             {projects.map((project, index) => (
               <div 
                 key={index}
-                className={`group card-3d bg-dark rounded-2xl overflow-hidden border border-gray-800 hover:border-primary/50 depth-shadow neon-border stagger-${(index % 6) + 1}`}
+                onClick={() => navigate(`/projects?category=${encodeURIComponent(project.category)}`)}
+                className={`group card-3d bg-dark rounded-2xl overflow-hidden border border-gray-800 hover:border-primary/50 depth-shadow neon-border stagger-${(index % 6) + 1} cursor-pointer`}
               >
                 <div className="card-3d-inner">
                   {/* Project Image with Lazy Loading */}
@@ -572,6 +573,14 @@ function HomePage() {
                           {tool}
                         </span>
                       ))}
+                    </div>
+                    
+                    {/* View Category Link */}
+                    <div className="mt-4 pt-4 border-t border-gray-800">
+                      <span className="text-primary text-xs font-medium flex items-center gap-1 group-hover:gap-2 transition-all">
+                        View all {project.category}
+                        <ArrowRight className="w-3 h-3" />
+                      </span>
                     </div>
                   </div>
                 </div>
