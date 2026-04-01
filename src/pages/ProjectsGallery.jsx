@@ -245,41 +245,28 @@ function ImageModal({ image, onClose, onNext, onPrev, currentIndex, total }) {
   }, [onClose, onNext, onPrev]);
 
   return (
-    <div className="fixed inset-0 z-[200] bg-black/95 flex items-center justify-center overflow-hidden">
-      {/* Close Button - Always visible */}
-      <button
-        onClick={onClose}
-        className="fixed top-2 right-2 sm:top-4 sm:right-4 w-10 h-10 sm:w-12 sm:h-12 bg-white/20 hover:bg-white/30 rounded-full flex items-center justify-center text-white transition-all z-[210] shadow-lg"
-      >
-        <X className="w-5 h-5 sm:w-6 sm:h-6" />
-      </button>
-
-      {/* Navigation Buttons - Always visible */}
-      <button
-        onClick={onPrev}
-        className="fixed left-2 sm:left-4 top-1/2 -translate-y-1/2 w-10 h-10 sm:w-12 sm:h-12 bg-white/20 hover:bg-white/30 rounded-full flex items-center justify-center text-white transition-all z-[210] shadow-lg disabled:opacity-20 disabled:cursor-not-allowed"
-        disabled={currentIndex === 0}
-      >
-        <ChevronLeft className="w-5 h-5 sm:w-6 sm:h-6" />
-      </button>
-
-      <button
-        onClick={onNext}
-        className="fixed right-2 sm:right-4 top-1/2 -translate-y-1/2 w-10 h-10 sm:w-12 sm:h-12 bg-white/20 hover:bg-white/30 rounded-full flex items-center justify-center text-white transition-all z-[210] shadow-lg disabled:opacity-20 disabled:cursor-not-allowed"
-        disabled={currentIndex === total - 1}
-      >
-        <ChevronRight className="w-5 h-5 sm:w-6 sm:h-6" />
-      </button>
-
-      {/* Loading Spinner */}
-      {isLoading && (
-        <div className="fixed inset-0 flex items-center justify-center z-[205]">
-          <div className="w-10 h-10 sm:w-12 sm:h-12 border-4 border-gray-600 border-t-primary rounded-full animate-spin" />
+    <div className="fixed inset-0 z-[200] bg-black flex flex-col">
+      {/* Top Bar with Close Button */}
+      <div className="flex items-center justify-between px-4 py-3 sm:px-6 sm:py-4 bg-black/50 backdrop-blur-sm z-[210]">
+        <div className="flex items-center gap-2">
+          <span className="text-gray-400 text-sm">{currentIndex + 1} / {total}</span>
         </div>
-      )}
+        <button
+          onClick={onClose}
+          className="w-10 h-10 bg-white/20 hover:bg-white/30 rounded-full flex items-center justify-center text-white transition-all shadow-lg active:scale-95"
+        >
+          <X className="w-5 h-5" />
+        </button>
+      </div>
 
-      {/* Image Container - Full size display */}
-      <div className="relative w-full h-full flex items-center justify-center p-4 sm:p-16">
+      {/* Main Image Area */}
+      <div className="flex-1 relative flex items-center justify-center overflow-hidden p-4">
+        {isLoading && (
+          <div className="absolute inset-0 flex items-center justify-center">
+            <div className="w-10 h-10 border-4 border-gray-600 border-t-primary rounded-full animate-spin" />
+          </div>
+        )}
+        
         <img
           src={image.src}
           alt={image.title}
@@ -288,20 +275,37 @@ function ImageModal({ image, onClose, onNext, onPrev, currentIndex, total }) {
           className={`max-w-full max-h-full object-contain transition-opacity duration-300 ${
             isLoading ? 'opacity-0' : 'opacity-100'
           }`}
-          style={{ maxHeight: 'calc(100vh - 120px)' }}
         />
       </div>
 
-      {/* Image Info - Fixed at bottom */}
-      <div className="fixed bottom-0 left-0 right-0 bg-gradient-to-t from-black/90 to-transparent pt-12 pb-4 sm:pb-8 px-4 z-[210]">
-        <div className="text-center">
-          <h3 className="text-white text-base sm:text-xl font-semibold mb-1">{image.title}</h3>
-          <span className="inline-block px-2 py-1 sm:px-3 sm:py-1 bg-primary/30 text-primary text-xs sm:text-sm rounded-full border border-primary/50">
-            {image.category}
-          </span>
-          <p className="text-gray-400 text-xs sm:text-sm mt-2">
-            {currentIndex + 1} / {total}
-          </p>
+      {/* Bottom Bar with Navigation and Info */}
+      <div className="bg-black/50 backdrop-blur-sm px-4 py-3 sm:px-6 sm:py-4 z-[210]">
+        <div className="flex items-center justify-between">
+          {/* Previous Button */}
+          <button
+            onClick={onPrev}
+            disabled={currentIndex === 0}
+            className="w-12 h-12 bg-white/20 hover:bg-white/30 disabled:bg-white/5 rounded-full flex items-center justify-center text-white transition-all shadow-lg active:scale-95 disabled:opacity-30"
+          >
+            <ChevronLeft className="w-6 h-6" />
+          </button>
+
+          {/* Image Info */}
+          <div className="text-center flex-1 px-4">
+            <h3 className="text-white text-sm sm:text-lg font-semibold truncate">{image.title}</h3>
+            <span className="inline-block px-2 py-0.5 sm:px-3 sm:py-1 mt-1 bg-primary/30 text-primary text-xs rounded-full border border-primary/50">
+              {image.category}
+            </span>
+          </div>
+
+          {/* Next Button */}
+          <button
+            onClick={onNext}
+            disabled={currentIndex === total - 1}
+            className="w-12 h-12 bg-white/20 hover:bg-white/30 disabled:bg-white/5 rounded-full flex items-center justify-center text-white transition-all shadow-lg active:scale-95 disabled:opacity-30"
+          >
+            <ChevronRight className="w-6 h-6" />
+          </button>
         </div>
       </div>
     </div>
