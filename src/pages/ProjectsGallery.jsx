@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback, useRef } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
-import { ArrowLeft, X, ChevronLeft, ChevronRight, Grid3X3, Loader2, ImageOff } from 'lucide-react';
+import { ArrowLeft, X, ChevronLeft, ChevronRight, Grid3X3, Loader2, ImageOff, Home, User, Briefcase, Wrench, Mail } from 'lucide-react';
 
 // Import all project images from different folders
 const allProjectImages = [
@@ -398,30 +398,71 @@ function ProjectsGallery() {
 
   return (
     <div className="min-h-screen bg-dark">
-      {/* Header - Mobile optimized */}
+      {/* Header with Navigation - Mobile optimized */}
       <div className="fixed top-0 left-0 right-0 z-50 bg-dark/95 backdrop-blur-xl border-b border-gray-800">
         <div className="max-w-7xl mx-auto px-3 sm:px-4 lg:px-8 py-3 sm:py-4">
           <div className="flex items-center justify-between">
+            {/* Back Button */}
             <button
               onClick={() => navigate('/#projects')}
               className="flex items-center gap-1 sm:gap-2 text-gray-400 hover:text-primary transition-colors"
             >
               <ArrowLeft className="w-4 h-4 sm:w-5 sm:h-5" />
-              <span className="font-medium text-sm sm:text-base">Back</span>
+              <span className="font-medium text-sm sm:text-base hidden sm:inline">Back</span>
             </button>
+
+            {/* Title */}
             <h1 className="text-lg sm:text-xl font-bold text-white flex items-center gap-1 sm:gap-2">
               <Grid3X3 className="w-5 h-5 sm:w-6 sm:h-6 text-primary" />
               <span className="hidden sm:inline">All Projects</span>
               <span className="sm:hidden">Gallery</span>
               <span className="text-xs sm:text-sm text-gray-400">({allProjectImages.length})</span>
             </h1>
-            <div className="w-10 sm:w-24" />
+
+            {/* Navigation Links - Desktop */}
+            <nav className="hidden md:flex items-center gap-6">
+              <button onClick={() => navigate('/')} className="flex items-center gap-2 text-gray-400 hover:text-primary transition-colors">
+                <Home className="w-4 h-4" />
+                <span className="text-sm">Home</span>
+              </button>
+              <button onClick={() => navigate('/#about')} className="flex items-center gap-2 text-gray-400 hover:text-primary transition-colors">
+                <User className="w-4 h-4" />
+                <span className="text-sm">About</span>
+              </button>
+              <button onClick={() => navigate('/#skills')} className="flex items-center gap-2 text-gray-400 hover:text-primary transition-colors">
+                <Wrench className="w-4 h-4" />
+                <span className="text-sm">Skills</span>
+              </button>
+              <button onClick={() => navigate('/#connect')} className="flex items-center gap-2 text-gray-400 hover:text-primary transition-colors">
+                <Mail className="w-4 h-4" />
+                <span className="text-sm">Contact</span>
+              </button>
+            </nav>
+
+            {/* Mobile Menu Button */}
+            <div className="md:hidden w-10" />
+          </div>
+
+          {/* Mobile Navigation */}
+          <div className="md:hidden flex items-center justify-center gap-4 mt-3 pt-3 border-t border-gray-800">
+            <button onClick={() => navigate('/')} className="text-gray-400 hover:text-primary transition-colors">
+              <Home className="w-5 h-5" />
+            </button>
+            <button onClick={() => navigate('/#about')} className="text-gray-400 hover:text-primary transition-colors">
+              <User className="w-5 h-5" />
+            </button>
+            <button onClick={() => navigate('/#skills')} className="text-gray-400 hover:text-primary transition-colors">
+              <Wrench className="w-5 h-5" />
+            </button>
+            <button onClick={() => navigate('/#connect')} className="text-gray-400 hover:text-primary transition-colors">
+              <Mail className="w-5 h-5" />
+            </button>
           </div>
         </div>
       </div>
 
       {/* Filter Buttons - Mobile optimized */}
-      <div className="pt-20 sm:pt-24 pb-3 sm:pb-4 px-3 sm:px-4">
+      <div className="pt-28 sm:pt-24 pb-3 sm:pb-4 px-3 sm:px-4">
         <div className="max-w-7xl mx-auto">
           <div className="flex flex-wrap gap-1.5 sm:gap-2 justify-center">
             {categories.map(cat => (
@@ -479,6 +520,9 @@ function ProjectsGallery() {
                   src={image.src}
                   alt={image.title}
                   onClick={() => handleImageClick(image)}
+                  aspectRatio="aspect-auto"
+                  objectFit="object-contain"
+                  className="rounded-lg"
                 />
                 {/* Title below thumbnail - Mobile optimized */}
                 <div className="mt-1 sm:mt-2">

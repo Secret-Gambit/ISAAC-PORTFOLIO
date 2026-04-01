@@ -531,32 +531,22 @@ function HomePage() {
               <div 
                 key={index}
                 onClick={() => navigate('/projects')}
-                className="group bg-dark rounded-2xl overflow-hidden border border-gray-800 hover:border-primary/50 transition-all duration-300 cursor-pointer hover:shadow-lg hover:shadow-primary/10"
+                className="group relative rounded-2xl overflow-hidden border border-gray-800 hover:border-primary/50 transition-all duration-300 cursor-pointer hover:shadow-lg hover:shadow-primary/10"
               >
-                {/* Project Image - Full height, no cropping */}
-                <div className="relative overflow-hidden">
-                  <LazyImage
-                    src={project.image}
-                    alt={project.title}
-                    aspectRatio="aspect-auto"
-                    className="w-full h-auto group-hover:scale-105 transition-transform duration-500"
-                    showHoverOverlay={false}
-                    objectFit="object-cover"
-                  />
-                  
-                  {/* Category Badge - Top Left */}
-                  <div className="absolute top-3 left-3 sm:top-4 sm:left-4">
-                    <span className="px-3 py-1.5 bg-primary text-white text-xs font-semibold rounded-full shadow-lg">
-                      {project.category}
-                    </span>
-                  </div>
-                </div>
+                {/* Project Image - Fills entire card */}
+                <LazyImage
+                  src={project.image}
+                  alt={project.title}
+                  aspectRatio="aspect-auto"
+                  className="w-full h-auto group-hover:scale-105 transition-transform duration-500"
+                  showHoverOverlay={false}
+                  objectFit="object-cover"
+                />
                 
-                {/* Click to see more - Bottom */}
-                <div className="p-4 border-t border-gray-800">
-                  <span className="text-gray-400 text-sm font-medium flex items-center gap-2 group-hover:text-primary transition-colors">
-                    Click to see more
-                    <ArrowRight className="w-4 h-4" />
+                {/* Category Badge - Top Left */}
+                <div className="absolute top-3 left-3 sm:top-4 sm:left-4 z-10">
+                  <span className="px-3 py-1.5 bg-primary text-white text-xs font-semibold rounded-full shadow-lg">
+                    {project.category}
                   </span>
                 </div>
               </div>
