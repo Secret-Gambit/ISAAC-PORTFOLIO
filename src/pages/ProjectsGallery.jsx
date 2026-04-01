@@ -246,57 +246,57 @@ function ImageModal({ image, onClose, onNext, onPrev, currentIndex, total }) {
 
   return (
     <div className="fixed inset-0 z-[200] bg-black/95 flex items-center justify-center">
-      {/* Close Button */}
+      {/* Close Button - Mobile optimized */}
       <button
         onClick={onClose}
-        className="absolute top-4 right-4 w-12 h-12 bg-white/10 hover:bg-white/20 rounded-full flex items-center justify-center text-white transition-all z-10"
+        className="absolute top-2 right-2 sm:top-4 sm:right-4 w-10 h-10 sm:w-12 sm:h-12 bg-white/10 hover:bg-white/20 rounded-full flex items-center justify-center text-white transition-all z-10"
       >
-        <X className="w-6 h-6" />
+        <X className="w-5 h-5 sm:w-6 sm:h-6" />
       </button>
 
-      {/* Navigation */}
+      {/* Navigation - Mobile optimized positioning */}
       <button
         onClick={onPrev}
-        className="absolute left-4 top-1/2 -translate-y-1/2 w-12 h-12 bg-white/10 hover:bg-white/20 rounded-full flex items-center justify-center text-white transition-all disabled:opacity-30"
+        className="absolute left-2 sm:left-4 top-1/2 -translate-y-1/2 w-10 h-10 sm:w-12 sm:h-12 bg-white/10 hover:bg-white/20 rounded-full flex items-center justify-center text-white transition-all disabled:opacity-30"
         disabled={currentIndex === 0}
       >
-        <ChevronLeft className="w-6 h-6" />
+        <ChevronLeft className="w-5 h-5 sm:w-6 sm:h-6" />
       </button>
 
       <button
         onClick={onNext}
-        className="absolute right-4 top-1/2 -translate-y-1/2 w-12 h-12 bg-white/10 hover:bg-white/20 rounded-full flex items-center justify-center text-white transition-all disabled:opacity-30"
+        className="absolute right-2 sm:right-4 top-1/2 -translate-y-1/2 w-10 h-10 sm:w-12 sm:h-12 bg-white/10 hover:bg-white/20 rounded-full flex items-center justify-center text-white transition-all disabled:opacity-30"
         disabled={currentIndex === total - 1}
       >
-        <ChevronRight className="w-6 h-6" />
+        <ChevronRight className="w-5 h-5 sm:w-6 sm:h-6" />
       </button>
 
       {/* Loading Spinner for Modal Image */}
       {isLoading && (
         <div className="absolute inset-0 flex items-center justify-center">
-          <div className="w-12 h-12 border-4 border-gray-700 border-t-primary rounded-full animate-spin" />
+          <div className="w-10 h-10 sm:w-12 sm:h-12 border-4 border-gray-700 border-t-primary rounded-full animate-spin" />
         </div>
       )}
 
-      {/* Image Container */}
-      <div className="max-w-[90vw] max-h-[85vh]">
+      {/* Image Container - Mobile optimized */}
+      <div className="max-w-[95vw] sm:max-w-[90vw] max-h-[80vh] sm:max-h-[85vh]">
         <img
           src={image.src}
           alt={image.title}
           onLoad={() => setIsLoading(false)}
-          className={`max-w-full max-h-[85vh] object-contain transition-opacity duration-300 ${
+          className={`max-w-full max-h-[80vh] sm:max-h-[85vh] object-contain transition-opacity duration-300 ${
             isLoading ? 'opacity-0' : 'opacity-100'
           }`}
         />
       </div>
 
-      {/* Image Info */}
-      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 text-center">
-        <h3 className="text-white text-xl font-semibold mb-1">{image.title}</h3>
-        <span className="px-3 py-1 bg-primary/20 text-primary text-sm rounded-full border border-primary/30">
+      {/* Image Info - Mobile optimized */}
+      <div className="absolute bottom-4 sm:bottom-8 left-1/2 -translate-x-1/2 text-center px-4">
+        <h3 className="text-white text-base sm:text-xl font-semibold mb-1 line-clamp-1">{image.title}</h3>
+        <span className="px-2 py-1 sm:px-3 sm:py-1 bg-primary/20 text-primary text-xs sm:text-sm rounded-full border border-primary/30">
           {image.category}
         </span>
-        <p className="text-gray-400 text-sm mt-2">
+        <p className="text-gray-400 text-xs sm:text-sm mt-1 sm:mt-2">
           {currentIndex + 1} / {total}
         </p>
       </div>
@@ -379,30 +379,32 @@ function ProjectsGallery() {
 
   return (
     <div className="min-h-screen bg-dark">
-      {/* Header */}
+      {/* Header - Mobile optimized */}
       <div className="fixed top-0 left-0 right-0 z-50 bg-dark/95 backdrop-blur-xl border-b border-gray-800">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+        <div className="max-w-7xl mx-auto px-3 sm:px-4 lg:px-8 py-3 sm:py-4">
           <div className="flex items-center justify-between">
             <button
               onClick={() => navigate('/')}
-              className="flex items-center gap-2 text-gray-400 hover:text-primary transition-colors"
+              className="flex items-center gap-1 sm:gap-2 text-gray-400 hover:text-primary transition-colors"
             >
-              <ArrowLeft className="w-5 h-5" />
-              <span className="font-medium">Back to Home</span>
+              <ArrowLeft className="w-4 h-4 sm:w-5 sm:h-5" />
+              <span className="font-medium text-sm sm:text-base">Back</span>
             </button>
-            <h1 className="text-xl font-bold text-white flex items-center gap-2">
-              <Grid3X3 className="w-6 h-6 text-primary" />
-              All Projects ({allProjectImages.length})
+            <h1 className="text-lg sm:text-xl font-bold text-white flex items-center gap-1 sm:gap-2">
+              <Grid3X3 className="w-5 h-5 sm:w-6 sm:h-6 text-primary" />
+              <span className="hidden sm:inline">All Projects</span>
+              <span className="sm:hidden">Gallery</span>
+              <span className="text-xs sm:text-sm text-gray-400">({allProjectImages.length})</span>
             </h1>
-            <div className="w-24" />
+            <div className="w-10 sm:w-24" />
           </div>
         </div>
       </div>
 
-      {/* Filter Buttons */}
-      <div className="pt-24 pb-4 px-4">
+      {/* Filter Buttons - Mobile optimized */}
+      <div className="pt-20 sm:pt-24 pb-3 sm:pb-4 px-3 sm:px-4">
         <div className="max-w-7xl mx-auto">
-          <div className="flex flex-wrap gap-2 justify-center">
+          <div className="flex flex-wrap gap-1.5 sm:gap-2 justify-center">
             {categories.map(cat => (
               <button
                 key={cat}
@@ -410,15 +412,16 @@ function ProjectsGallery() {
                   setFilter(cat);
                   setDisplayCount(24);
                 }}
-                className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${
+                className={`px-2.5 sm:px-4 py-1.5 sm:py-2 rounded-full text-xs sm:text-sm font-medium transition-all ${
                   filter === cat
                     ? 'bg-primary text-white'
                     : 'bg-gray-800 text-gray-400 hover:bg-gray-700'
                 }`}
               >
-                {cat}
+                <span className="sm:hidden">{cat.slice(0, 4)}{cat.length > 4 ? '..' : ''}</span>
+                <span className="hidden sm:inline">{cat}</span>
                 {cat !== 'All' && (
-                  <span className="ml-2 text-xs opacity-70">
+                  <span className="ml-1 sm:ml-2 text-xs opacity-70">
                     {allProjectImages.filter(img => img.category === cat).length}
                   </span>
                 )}
@@ -428,19 +431,19 @@ function ProjectsGallery() {
         </div>
       </div>
 
-      {/* Results Count */}
-      <div className="px-4 pb-4">
+      {/* Results Count - Mobile optimized */}
+      <div className="px-3 sm:px-4 pb-3 sm:pb-4">
         <div className="max-w-7xl mx-auto text-center">
-          <p className="text-gray-500 text-sm">
-            Showing {Math.min(visibleImages.length, filteredImages.length)} of {filteredImages.length} projects
+          <p className="text-gray-500 text-xs sm:text-sm">
+            {visibleImages.length} of {filteredImages.length} projects
           </p>
         </div>
       </div>
 
-      {/* YouTube-Style Grid */}
-      <div className="px-4 pb-12">
+      {/* YouTube-Style Grid - Mobile optimized spacing */}
+      <div className="px-2 sm:px-4 pb-8 sm:pb-12">
         <div className="max-w-7xl mx-auto">
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4">
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-2 sm:gap-4">
             {visibleImages.map((image, index) => (
               <div
                 key={`${image.src}-${index}`}
@@ -452,33 +455,34 @@ function ProjectsGallery() {
                   alt={image.title}
                   onClick={() => handleImageClick(image, index)}
                 />
-                {/* Title below thumbnail */}
-                <div className="mt-2">
-                  <h3 className="text-white text-sm font-medium line-clamp-2 group-hover:text-primary transition-colors">
+                {/* Title below thumbnail - Mobile optimized */}
+                <div className="mt-1 sm:mt-2">
+                  <h3 className="text-white text-xs sm:text-sm font-medium line-clamp-1 sm:line-clamp-2 group-hover:text-primary transition-colors">
                     {image.title}
                   </h3>
-                  <p className="text-gray-500 text-xs mt-0.5">{image.category}</p>
+                  <p className="text-gray-500 text-xs mt-0.5 hidden sm:block">{image.category}</p>
                 </div>
               </div>
             ))}
           </div>
 
-          {/* Load More Button */}
+          {/* Load More Button - Mobile optimized */}
           {displayCount < filteredImages.length && (
-            <div className="mt-12 text-center">
+            <div className="mt-8 sm:mt-12 text-center">
               <button
                 onClick={loadMore}
-                className="px-8 py-3 bg-primary/10 hover:bg-primary/20 text-primary border border-primary/50 rounded-full font-medium transition-all"
+                className="px-6 py-2.5 sm:px-8 sm:py-3 bg-primary/10 hover:bg-primary/20 text-primary border border-primary/50 rounded-full font-medium text-sm sm:text-base transition-all"
               >
-                Load More ({filteredImages.length - displayCount} remaining)
+                <span className="sm:hidden">Load More ({filteredImages.length - displayCount})</span>
+                <span className="hidden sm:inline">Load More ({filteredImages.length - displayCount} remaining)</span>
               </button>
             </div>
           )}
 
           {/* End of Results */}
           {displayCount >= filteredImages.length && filteredImages.length > 0 && (
-            <div className="mt-12 text-center">
-              <p className="text-gray-500 text-sm">
+            <div className="mt-8 sm:mt-12 text-center">
+              <p className="text-gray-500 text-xs sm:text-sm">
                 You've reached the end of the gallery
               </p>
             </div>

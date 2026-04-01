@@ -24,6 +24,7 @@ import {
   ArrowRight
 } from 'lucide-react';
 import SpiderWebCanvas from './components/SpiderWebCanvas';
+import { LazyImage } from './components/LazyImage';
 import { TypewriterText, ScrambleText, GlitchText, RotatingTypewriter } from './hooks/useTypewriter.jsx';
 import CyberTypewriter from './app/hero/CyberTypewriter';
 import './app/hero/CyberTypewriter.css';
@@ -527,34 +528,35 @@ function HomePage() {
             </p>
           </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 perspective-container">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 perspective-container">
             {projects.map((project, index) => (
               <div 
                 key={index}
                 className={`group card-3d bg-dark rounded-2xl overflow-hidden border border-gray-800 hover:border-primary/50 depth-shadow neon-border stagger-${(index % 6) + 1}`}
               >
                 <div className="card-3d-inner">
-                  {/* Project Image */}
-                  <div className="relative h-48 overflow-hidden">
-                    <img 
-                      src={project.image} 
+                  {/* Project Image with Lazy Loading */}
+                  <div className="relative h-48 sm:h-56 overflow-hidden">
+                    <LazyImage
+                      src={project.image}
                       alt={project.title}
-                      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-                      loading="lazy"
-                      decoding="async"
+                      aspectRatio="aspect-auto"
+                      className="h-full w-full"
+                      showHoverOverlay={false}
+                      objectFit="object-cover"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-dark via-dark/50 to-transparent" />
-                    <div className="absolute top-4 right-4 px-3 py-1 bg-primary/20 backdrop-blur-sm rounded-full border border-primary/30">
+                    <div className="absolute inset-0 bg-gradient-to-t from-dark via-dark/50 to-transparent pointer-events-none" />
+                    <div className="absolute top-3 right-3 sm:top-4 sm:right-4 px-2 py-1 sm:px-3 sm:py-1 bg-primary/20 backdrop-blur-sm rounded-full border border-primary/30">
                       <span className="text-primary text-xs font-medium">{project.category}</span>
                     </div>
                   </div>
                   
                   {/* Project Info */}
-                  <div className="p-6">
-                    <h3 className="text-xl font-semibold text-white mb-2 group-hover:text-primary transition-colors">
+                  <div className="p-4 sm:p-6">
+                    <h3 className="text-lg sm:text-xl font-semibold text-white mb-2 group-hover:text-primary transition-colors">
                       {project.title}
                     </h3>
-                    <p className="text-gray-400 text-sm mb-4">
+                    <p className="text-gray-400 text-sm mb-4 line-clamp-2">
                       {project.description}
                     </p>
                     
