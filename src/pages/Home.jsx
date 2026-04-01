@@ -30,8 +30,14 @@ import './app/hero/CyberTypewriter.css';
 import useScrollAnimation from './hooks/useScrollAnimation';
 import ProjectsGallery from './pages/ProjectsGallery';
 
-function HomePage() {
-  const navigate = useNavigate();
+function App() {
+  return (
+    <Routes>
+      <Route path="/" element={<Home />} />
+      <Route path="/projects" element={<ProjectsGallery />} />
+    </Routes>
+  );
+}
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [heroLoaded, setHeroLoaded] = useState(true);
@@ -578,7 +584,7 @@ function HomePage() {
           {/* See All Button */}
           <div className="mt-12 text-center">
             <button
-              onClick={() => navigate('/projects')}
+              onClick={() => window.location.href = '/projects'}
               className="inline-flex items-center gap-2 px-8 py-4 bg-primary/10 hover:bg-primary/20 text-primary border border-primary/50 rounded-full font-medium transition-all group"
             >
               <Grid3X3 className="w-5 h-5" />
@@ -666,14 +672,4 @@ function HomePage() {
   );
 }
 
-// Main App with Routing
-function App() {
-  return (
-    <Routes>
-      <Route path="/" element={<HomePage />} />
-      <Route path="/projects" element={<ProjectsGallery />} />
-    </Routes>
-  );
-}
-
-export default App
+export default Home
