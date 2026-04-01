@@ -533,17 +533,16 @@ function HomePage() {
                 onClick={() => navigate('/projects')}
                 className="group bg-dark rounded-2xl overflow-hidden border border-gray-800 hover:border-primary/50 transition-all duration-300 cursor-pointer hover:shadow-lg hover:shadow-primary/10"
               >
-                {/* Project Image */}
-                <div className="relative h-48 sm:h-56 overflow-hidden">
+                {/* Project Image - Full height, no cropping */}
+                <div className="relative overflow-hidden">
                   <LazyImage
                     src={project.image}
                     alt={project.title}
                     aspectRatio="aspect-auto"
-                    className="h-full w-full group-hover:scale-105 transition-transform duration-500"
+                    className="w-full h-auto group-hover:scale-105 transition-transform duration-500"
                     showHoverOverlay={false}
                     objectFit="object-cover"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-dark via-dark/20 to-transparent pointer-events-none" />
                   
                   {/* Category Badge - Top Left */}
                   <div className="absolute top-3 left-3 sm:top-4 sm:left-4">
@@ -551,6 +550,14 @@ function HomePage() {
                       {project.category}
                     </span>
                   </div>
+                </div>
+                
+                {/* Click to see more - Bottom */}
+                <div className="p-4 border-t border-gray-800">
+                  <span className="text-gray-400 text-sm font-medium flex items-center gap-2 group-hover:text-primary transition-colors">
+                    Click to see more
+                    <ArrowRight className="w-4 h-4" />
+                  </span>
                 </div>
               </div>
             ))}
