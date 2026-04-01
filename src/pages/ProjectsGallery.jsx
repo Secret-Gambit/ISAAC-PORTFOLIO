@@ -316,11 +316,11 @@ function ProjectsGallery() {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const [selectedImage, setSelectedImage] = useState(null);
-  const [filter, setFilter] = useState('All');
+  const [filter, setFilter] = useState('Business Branding');
   const [isLoading, setIsLoading] = useState(true);
   const [displayCount, setDisplayCount] = useState(24);
 
-  const categories = ['All', ...new Set(allProjectImages.map(img => img.category))];
+  const categories = [...new Set(allProjectImages.map(img => img.category))];
 
   // Read category from URL query params on mount
   useEffect(() => {
@@ -330,9 +330,7 @@ function ProjectsGallery() {
     }
   }, [searchParams, categories]);
 
-  const filteredImages = filter === 'All' 
-    ? allProjectImages 
-    : allProjectImages.filter(img => img.category === filter);
+  const filteredImages = allProjectImages.filter(img => img.category === filter);
 
   const visibleImages = filteredImages.slice(0, displayCount);
 
@@ -472,11 +470,7 @@ function ProjectsGallery() {
                   setFilter(cat);
                   setDisplayCount(24);
                   // Update URL to reflect the filter change
-                  if (cat === 'All') {
-                    navigate('/projects', { replace: true });
-                  } else {
-                    navigate(`/projects?category=${encodeURIComponent(cat)}`, { replace: true });
-                  }
+                  navigate(`/projects?category=${encodeURIComponent(cat)}`, { replace: true });
                 }}
                 className={`px-2.5 sm:px-4 py-1.5 sm:py-2 rounded-full text-xs sm:text-sm font-medium transition-all ${
                   filter === cat
@@ -486,11 +480,9 @@ function ProjectsGallery() {
               >
                 <span className="sm:hidden">{cat.slice(0, 4)}{cat.length > 4 ? '..' : ''}</span>
                 <span className="hidden sm:inline">{cat}</span>
-                {cat !== 'All' && (
-                  <span className="ml-1 sm:ml-2 text-xs opacity-70">
-                    {allProjectImages.filter(img => img.category === cat).length}
-                  </span>
-                )}
+                <span className="ml-1 sm:ml-2 text-xs opacity-70">
+                  {allProjectImages.filter(img => img.category === cat).length}
+                </span>
               </button>
             ))}
           </div>
