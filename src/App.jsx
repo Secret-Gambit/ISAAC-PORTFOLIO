@@ -254,12 +254,12 @@ function HomePage() {
             
             {/* LEFT SIDE - Content */}
             <div ref={heroRef} className="max-w-2xl text-left">
-              <div className="inline-flex items-center gap-2 px-3 py-1.5 sm:px-4 sm:py-2 rounded-full bg-primary/10 border border-primary/30 mb-4 sm:mb-6">
+              <div className="inline-flex items-center gap-2 px-3 py-1.5 sm:px-4 sm:py-2 rounded-full bg-primary/10 border border-primary/30 mb-2 sm:mb-3">
                 <span className="w-2 h-2 rounded-full bg-green-400" />
                 <span className="text-primary text-xs sm:text-sm">SYSTEM_ONLINE</span>
               </div>
               
-              <div className="mb-6">
+              <div className="mb-3 sm:mb-4">
                 <h1 className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white md:whitespace-nowrap">
                   <RotatingTypewriter 
                     phrases={[
@@ -274,7 +274,7 @@ function HomePage() {
                 </h1>
               </div>
               
-              <p className="text-gray-500 mb-6 sm:mb-8 max-w-md text-sm sm:text-base">
+              <p className="text-gray-500 mb-4 sm:mb-6 max-w-md text-sm sm:text-base">
                 Initializing creative protocols... Bringing ideas to life through visually stunning designs.
               </p>
               
@@ -481,32 +481,29 @@ function HomePage() {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 perspective-container">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
             {skills.map((skill, index) => (
               <div 
                 key={index}
-                className={`group card-3d always-glow bg-dark rounded-xl p-4 sm:p-6 border border-gray-800 hover:border-primary/50 depth-shadow neon-border stagger-${(index % 6) + 1}`}
+                className={`group bg-dark rounded-xl p-4 sm:p-6 border border-gray-800 hover:border-primary/50 transition-all duration-300 stagger-${(index % 6) + 1}`}
               >
-                <div className="card-3d-inner">
-                  <div className="flex items-center justify-between mb-3 sm:mb-4">
-                    <div className="flex items-center gap-3 sm:gap-4">
-                      <div className="w-10 h-10 sm:w-12 sm:h-12 bg-primary/10 rounded-lg flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white transition-all">
-                        {skill.icon}
-                      </div>
-                      <div>
-                        <span className="text-white font-medium block text-sm sm:text-base">{skill.name}</span>
-                        <span className="text-primary text-xs">{skill.level}</span>
-                      </div>
+                <div className="flex items-center justify-between mb-3 sm:mb-4">
+                  <div className="flex items-center gap-3 sm:gap-4">
+                    <div className="w-10 h-10 sm:w-12 sm:h-12 bg-primary/10 rounded-lg flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white transition-all">
+                      {skill.icon}
                     </div>
-                    <Binary className="w-4 h-4 sm:w-5 sm:h-5 text-gray-600 group-hover:text-primary transition-colors" />
+                    <div>
+                      <span className="text-white font-medium block text-sm sm:text-base">{skill.name}</span>
+                      <span className="text-primary text-xs">{skill.level}</span>
+                    </div>
                   </div>
-                  
-                  <div className="h-1 bg-gray-800 rounded-full overflow-hidden">
-                    <div 
-                      className="h-full bg-gradient-to-r from-primary to-secondary rounded-full transition-all duration-1000"
-                      style={{ width: skill.level === 'Expert' ? '95%' : skill.level === 'Advanced' ? '85%' : '70%' }}
-                    />
-                  </div>
+                </div>
+                
+                <div className="h-1.5 bg-gray-800 rounded-full overflow-hidden">
+                  <div 
+                    className="h-full bg-gradient-to-r from-primary to-secondary rounded-full transition-all duration-1000"
+                    style={{ width: skill.level === 'Expert' ? '95%' : skill.level === 'Advanced' ? '85%' : '70%' }}
+                  />
                 </div>
               </div>
             ))}
@@ -530,58 +527,56 @@ function HomePage() {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 perspective-container">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
             {projects.map((project, index) => (
               <div 
                 key={index}
                 onClick={() => navigate(`/projects?category=${encodeURIComponent(project.category)}`)}
-                className={`group card-3d bg-dark rounded-2xl overflow-hidden border border-gray-800 hover:border-primary/50 depth-shadow neon-border stagger-${(index % 6) + 1} cursor-pointer`}
+                className="group bg-dark rounded-2xl overflow-hidden border border-gray-800 hover:border-primary/50 transition-all duration-300 cursor-pointer hover:shadow-lg hover:shadow-primary/10"
               >
-                <div className="card-3d-inner">
-                  {/* Project Image with Lazy Loading */}
-                  <div className="relative h-48 sm:h-56 overflow-hidden">
-                    <LazyImage
-                      src={project.image}
-                      alt={project.title}
-                      aspectRatio="aspect-auto"
-                      className="h-full w-full"
-                      showHoverOverlay={false}
-                      objectFit="object-cover"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-dark via-dark/50 to-transparent pointer-events-none" />
-                    <div className="absolute top-3 right-3 sm:top-4 sm:right-4 px-2 py-1 sm:px-3 sm:py-1 bg-primary/20 backdrop-blur-sm rounded-full border border-primary/30">
-                      <span className="text-primary text-xs font-medium">{project.category}</span>
-                    </div>
+                {/* Project Image with Lazy Loading */}
+                <div className="relative h-48 sm:h-56 overflow-hidden">
+                  <LazyImage
+                    src={project.image}
+                    alt={project.title}
+                    aspectRatio="aspect-auto"
+                    className="h-full w-full group-hover:scale-105 transition-transform duration-500"
+                    showHoverOverlay={false}
+                    objectFit="object-cover"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-dark via-dark/50 to-transparent pointer-events-none" />
+                  <div className="absolute top-3 right-3 sm:top-4 sm:right-4 px-2 py-1 sm:px-3 sm:py-1 bg-primary/20 backdrop-blur-sm rounded-full border border-primary/30">
+                    <span className="text-primary text-xs font-medium">{project.category}</span>
+                  </div>
+                </div>
+                
+                {/* Project Info */}
+                <div className="p-4 sm:p-6">
+                  <h3 className="text-lg sm:text-xl font-semibold text-white mb-2 group-hover:text-primary transition-colors">
+                    {project.title}
+                  </h3>
+                  <p className="text-gray-400 text-sm mb-4 line-clamp-2">
+                    {project.description}
+                  </p>
+                  
+                  {/* Tools */}
+                  <div className="flex flex-wrap gap-2">
+                    {project.tools.map((tool, toolIndex) => (
+                      <span 
+                        key={toolIndex}
+                        className="px-2 py-1 bg-primary/10 text-primary text-xs rounded-md border border-primary/20"
+                      >
+                        {tool}
+                      </span>
+                    ))}
                   </div>
                   
-                  {/* Project Info */}
-                  <div className="p-4 sm:p-6">
-                    <h3 className="text-lg sm:text-xl font-semibold text-white mb-2 group-hover:text-primary transition-colors">
-                      {project.title}
-                    </h3>
-                    <p className="text-gray-400 text-sm mb-4 line-clamp-2">
-                      {project.description}
-                    </p>
-                    
-                    {/* Tools */}
-                    <div className="flex flex-wrap gap-2">
-                      {project.tools.map((tool, toolIndex) => (
-                        <span 
-                          key={toolIndex}
-                          className="px-2 py-1 bg-primary/10 text-primary text-xs rounded-md border border-primary/20"
-                        >
-                          {tool}
-                        </span>
-                      ))}
-                    </div>
-                    
-                    {/* View Category Link */}
-                    <div className="mt-4 pt-4 border-t border-gray-800">
-                      <span className="text-primary text-xs font-medium flex items-center gap-1 group-hover:gap-2 transition-all">
-                        View all {project.category}
-                        <ArrowRight className="w-3 h-3" />
-                      </span>
-                    </div>
+                  {/* View Category Link */}
+                  <div className="mt-4 pt-4 border-t border-gray-800">
+                    <span className="text-primary text-xs font-medium flex items-center gap-1">
+                      View all {project.category}
+                      <ArrowRight className="w-3 h-3" />
+                    </span>
                   </div>
                 </div>
               </div>
